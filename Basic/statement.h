@@ -29,8 +29,6 @@
 
 enum StatementType {REM, LET, PRINT, INPUT, END, GOTO, IF, RUN, LIST, CLEAR, HELP};
 
-class Program;
-
 class Statement {
 
 public:

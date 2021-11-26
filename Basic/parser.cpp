@@ -8,6 +8,7 @@
 #include <string>
 
 #include "exp.h"
+#include "program.h"
 #include "statement.h"
 #include "parser.h"
 
@@ -42,7 +43,7 @@ Statement *getStatement(std::string order){
         return new RunExecute("RUN");
     } else if (order == "LIST") {
         return new ListExecute("LIST");
-    } else if (order == "CLEAR") {
+    } else {
         return new ClearExecute("CLEAR");
     }
 }

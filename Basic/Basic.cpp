@@ -52,9 +52,7 @@ int main() {
                     if (first == "QUIT") {
                         break;
                     } else {
-                        Statement *stmt = getStatement(first);
                         program.addSourceLine(lineNumber, line);
-                        program.setParsedStatement(lineNumber, stmt);
                     }
                 }
             } else { //首为指令:input

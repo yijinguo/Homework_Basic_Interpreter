@@ -222,7 +222,6 @@ void RunExecute::execute(string line, Program &program, EvalState &state) {
     ifEnd = false;
     operator_num = program.getFirstLineNumber();
     while (!ifEnd && program.getNextLineNumber(operator_num) != -1) {
-        Statement *stmt = program.getParsedStatement(operator_num);
         string operateLine = program.getSourceLine(operator_num);
         TokenScanner scanner;
         scanner.ignoreWhitespace();
@@ -230,6 +229,7 @@ void RunExecute::execute(string line, Program &program, EvalState &state) {
         scanner.setInput(operateLine);
         string input = scanner.nextToken();
         operateLine.erase(0,input.length() + 1);
+        Statement *stmt = getStatement(input);
         stmt->execute(operateLine,program,state);
         if (!OperatorNumChange) {
             operator_num = program.getNextLineNumber(operator_num);
@@ -238,7 +238,6 @@ void RunExecute::execute(string line, Program &program, EvalState &state) {
         }
     }
     if (!ifEnd) {
-        Statement *stmt = program.getParsedStatement(operator_num);
         string operateLine = program.getSourceLine(operator_num);
         TokenScanner scanner;
         scanner.ignoreWhitespace();
@@ -246,6 +245,7 @@ void RunExecute::execute(string line, Program &program, EvalState &state) {
         scanner.setInput(operateLine);
         string input = scanner.nextToken();
         operateLine.erase(0, input.length() + 1);
+        Statement *stmt = getStatement(input);
         stmt->execute(operateLine,program,state);
     }
 }

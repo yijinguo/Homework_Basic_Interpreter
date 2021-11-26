@@ -31,7 +31,6 @@ void Program::addSourceLine(int lineNumber, string line) {
 
 void Program::removeSourceLine(int lineNumber) {
     source_line.erase(lineNumber);
-    parsed_representation.erase(lineNumber);
 }
 
 string Program::getSourceLine(int lineNumber) {
@@ -42,13 +41,13 @@ string Program::getSourceLine(int lineNumber) {
     }
 }
 
-void Program::setParsedStatement(int lineNumber, Statement *stmt) {
-    parsed_representation[lineNumber] = stmt;
-}
-
-Statement *Program::getParsedStatement(int lineNumber) {
-    return parsed_representation[lineNumber];
-}
+//void Program::setParsedStatement(int lineNumber, Statement *stmt) {
+//    parsed_representation[lineNumber] = stmt;
+//}
+//
+//Statement *Program::getParsedStatement(int lineNumber) {
+//    return parsed_representation[lineNumber];
+//}
 
 int Program::getFirstLineNumber() {
     if (source_line.empty()) {
