@@ -25,10 +25,11 @@ using namespace std;
 namespace {
     int StringToInt(string s);
 }
+
 /* Main program */
-EvalState state;
-Program program;
 int main() {
+    EvalState state;
+    Program program;
     while (true) {
         try {
             string input;
