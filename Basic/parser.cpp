@@ -8,6 +8,7 @@
 #include <string>
 
 #include "exp.h"
+#include "statement.h"
 #include "parser.h"
 
 #include "../StanfordCPPLib/error.h"
@@ -21,6 +22,30 @@ using namespace std;
  * ------------------------------
  * This code just reads an expression and then checks for extra tokens.
  */
+
+Statement *getStatement(std::string order){
+    if (order == "REM") {
+        return new RemExecute("REM");
+    } else if (order == "LET") {
+        return new LetExecute("LET");
+    } else if (order == "PRINT") {
+        return new PrintExecute("PRINT");
+    } else if (order == "INPUT") {
+        return new InputExecute("INPUT");
+    } else if (order == "END") {
+        return new EndExecute("END");
+    } else if (order == "GOTO") {
+        return new GotoExecute("GOTO");
+    } else if (order == "IF") {
+        return new IfExecute("IF");
+    } else if (order == "RUN") {
+        return new RunExecute("RUN");
+    } else if (order == "LIST") {
+        return new ListExecute("LIST");
+    } else if (order == "CLEAR") {
+        return new ClearExecute("CLEAR");
+    }
+}
 
 Expression *parseExp(TokenScanner &scanner) {
     Expression *exp = readE(scanner);

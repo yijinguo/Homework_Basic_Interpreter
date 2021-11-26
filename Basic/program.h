@@ -27,11 +27,15 @@ using namespace std;
  *    pointer to a Statement.
  */
 
+class Statement;
+
 class Program {
 
 private:
 
     map<int,std::string> source_line;
+
+    map<int,Statement*> parsed_representation;
 
 public:
 
@@ -107,7 +111,7 @@ public:
  * exists, the memory for that statement is reclaimed.
  */
 
- //   void setParsedStatement(int lineNumber, Statement *stmt);
+    void setParsedStatement(int lineNumber, Statement *stmt);
 
 /*
  * Method: getParsedStatement
@@ -118,7 +122,7 @@ public:
  * returns NULL.
  */
 
-    //Statement *getParsedStatement(int lineNumber);
+    Statement *getParsedStatement(int lineNumber);
 
 /*
  * Method: getFirstLineNumber

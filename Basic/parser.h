@@ -21,6 +21,10 @@
  * whitespace and to scan numbers.
  */
 
+class Statement;
+
+Statement *getStatement(std::string order);
+
 Expression *parseExp(TokenScanner &scanner);
 
 /*

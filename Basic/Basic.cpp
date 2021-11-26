@@ -10,27 +10,29 @@
 #include "exp.h"
 #include "parser.h"
 #include "program.h"
+#include "statement.h"
 #include "../StanfordCPPLib/error.h"
 #include "../StanfordCPPLib/tokenscanner.h"
 
 #include "../StanfordCPPLib/simpio.h"
 #include "../StanfordCPPLib/strlib.h"
 
+
 using namespace std;
 
 /* Function prototypes */
 
-void processLine(string line, Program &program, EvalState &state);
-int StringToInt(string s);
+/*void processLine(string line, Program &program, EvalState &state);
 bool ifInteger(string s);
-void execute(string input,string line);
-
+void execute(string input,string line);*/
+namespace {
+    int StringToInt(string s);
+}
 /* Main program */
-bool quit = false;
 EvalState state;
 Program program;
 int main() {
-    while (!quit) {
+    while (true) {
         try {
             string input;
             cin >> input;
@@ -45,16 +47,52 @@ int main() {
                         program.removeSourceLine(lineNumber);
                     }
                 } else {
-                    program.addSourceLine(lineNumber, line);
+                    TokenScanner p;
+                    p.ignoreWhitespace();
+                    p.scanNumbers();
+                    p.setInput(line);
+                    string first = p.nextToken();
+                    if (first == "QUIT") {
+                        break;
+                    } else {
+                        Statement *stmt = getStatement(first);
+                        program.addSourceLine(lineNumber, line);
+                        program.setParsedStatement(lineNumber, stmt);
+                    }
                 }
             } else { //首为指令:input
-                execute(input, line);
+                if (input == "QUIT") {
+                    break;
+                } else {
+                    Statement *stmt = getStatement(input);
+                    stmt->execute(line, program, state);
+                }
             }
         } catch (ErrorException &ex) {
             cerr << "Error: " << ex.getMessage() << endl;
         }
     }
     return 0;
+}
+
+namespace {
+    int StringToInt(string s) {
+        int value = 0;
+        int time = 1;
+        if (s[0] != '-') {
+            for (int i = s.length() - 1; i >= 0; --i) {
+                value += (s[i] - 48) * time;
+                time *= 10;
+            }
+        } else {
+            for (int i = s.length() - 1; i >= 1; --i) {
+                value += (s[i] - 48) * time;
+                time *= 10;
+            }
+            value = (-1) * value;
+        }
+        return value;
+    }
 }
 
 /*
@@ -69,6 +107,7 @@ int main() {
  * or one of the BASIC commands, such as LIST or RUN.
  */
 
+/*
 bool ifEnd = false;
 bool OperatorNumChange = false;
 bool ifCout = true;
@@ -76,9 +115,7 @@ int operator_num;
 int outValue;
 TokenScanner scannerP;
 void execute(string input,string line) { //input指令，line不含指令
-    if (input == "QUIT") {
-        quit = true;
-    } else if (input == "LIST") {
+   if (input == "LIST") {
         if (!program.empty()) {
             int lineNumber = program.getFirstLineNumber();
             while (program.getNextLineNumber(lineNumber) != -1) {
@@ -250,3 +287,5 @@ bool ifInteger(string s){
     }
     return true;
 }
+
+ */

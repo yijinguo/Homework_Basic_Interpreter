@@ -12,6 +12,8 @@
 #ifndef _statement_h
 #define _statement_h
 
+#include <string>
+#include "program.h"
 #include "evalstate.h"
 #include "exp.h"
 
@@ -24,6 +26,10 @@
  * for each of the statement and command types required for the
  * BASIC interpreter.
  */
+
+enum StatementType {REM, LET, PRINT, INPUT, END, GOTO, IF, RUN, LIST, CLEAR, HELP};
+
+class Program;
 
 class Statement {
 
@@ -60,7 +66,7 @@ public:
  * controlling the operation of the interpreter.
  */
 
-    virtual void execute(EvalState &state) = 0;
+    virtual void execute(std::string line, Program &program, EvalState &state) = 0;
 
 };
 
@@ -75,4 +81,166 @@ public:
  * specify its own destructor method to free that memory.
  */
 
+//rem
+
+class RemExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    RemExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//let
+
+class LetExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    LetExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//print
+
+class PrintExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    PrintExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//input
+
+class InputExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    InputExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//end
+
+class EndExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    EndExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//goto
+
+class GotoExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    GotoExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//if
+
+class IfExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    IfExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//run
+
+class RunExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    RunExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//list
+
+class ListExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    ListExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
+//clear
+
+class ClearExecute : public Statement {
+
+private:
+
+    std::string order;
+
+public:
+
+    ClearExecute(std::string order);
+
+    virtual void execute(std::string line, Program &program, EvalState &state);
+
+};
+
 #endif
+
+
