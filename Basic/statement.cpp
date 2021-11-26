@@ -26,6 +26,18 @@ int operator_num;
 int outValue;
 TokenScanner scannerP;
 
+/*
+ * Function: processLine
+ * Usage: processLine(line, program, state);
+ * -----------------------------------------
+ * Processes a single line entered by the user.  In this version of
+ * implementation, the program reads a line, parses it as an expression,
+ * and then prints the result.  In your implementation, you will
+ * need to replace this method with one that can respond correctly
+ * when the user enters a program line (which begins with a number)
+ * or one of the BASIC commands, such as LIST or RUN.
+ */
+
 void processLine(string line, Program &program, EvalState &state) { // line中不含指令
     scannerP.ignoreWhitespace();
     scannerP.scanNumbers();
@@ -84,8 +96,6 @@ Statement::Statement() {
 Statement::~Statement() {
     /* Empty */
 }
-
-
 
 RemExecute::RemExecute(string order) {
     this->order = order;
